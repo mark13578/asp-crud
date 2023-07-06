@@ -183,8 +183,9 @@ namespace ContosoUniversity
 
             try
             {
-                _context.Students.Remove(student);
-            await _context.SaveChangesAsync();
+                Student studentToDelete = new Student() { ID = id };
+                _context.Entry(studentToDelete).State = EntityState.Deleted;
+                await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateException /* ex */)
